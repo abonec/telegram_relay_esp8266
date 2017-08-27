@@ -1,0 +1,5 @@
+#define DEBUG false
+#define BOTtoken "111111111:XXXXXXXXXXXXXXX-XXXXXXXXXXXXXXXXXXX" // your Bot Token (Get from Botfather)
+#define GROUIP "-222222222"
+#define ML_IP IPAddress(192, 168, 255, 14)
+#define MACHINE_TURN_TIMEOUT 7000

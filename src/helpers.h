@@ -1,0 +1,1 @@
+void intervaledPerform(unsigned long &lastPerform, unsigned long threshold, void (*f)());
