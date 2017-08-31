@@ -5,7 +5,7 @@ void initPinger()
 }
 bool ping()
 {
-    return Ping.ping(ML_IP, 3);
+    return Ping.ping(mlIp, 3);
 }
 
 void intervalPing()

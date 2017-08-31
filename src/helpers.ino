@@ -1,4 +1,5 @@
 #include <ESP8266Ping.h>
+#include <EEPROM.h>
 void printlnDebug(String str)
 {
     if (DEBUG)
@@ -45,12 +46,41 @@ void turnML()
 
 void intervaledPerform(unsigned long &lastPerform, unsigned long threshold, void (*f)())
 {
-  unsigned long currMillis = millis();
-  unsigned long interval = currMillis - lastPerform;
-  if (interval < threshold)
-  {
-    return;
-  }
-  lastPerform = currMillis;
-  (*f)();
+    unsigned long currMillis = millis();
+    unsigned long interval = currMillis - lastPerform;
+    if (interval < threshold)
+    {
+        return;
+    }
+    lastPerform = currMillis;
+    (*f)();
+}
+
+void initEEPROM()
+{
+    EEPROM.begin(512);
+}
+int startAddr = 500;
+void saveIp(int ip[4])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        EEPROM.write(startAddr + i, ip[i]);
+    }
+    EEPROM.commit();
+    loadIp();
+}
+
+void loadIp()
+{
+    int parts[4];
+    for (int i = 0; i < 4; i++)
+    {
+        parts[i] = EEPROM.read(startAddr + i);
+        Serial.println("output");
+        Serial.print(parts[i]);
+        Serial.println("close");
+    }
+    mlIp = IPAddress(parts[0], parts[1], parts[2], parts[3]);
+    sendMessage(GROUIP, mlIp.toString());
 }

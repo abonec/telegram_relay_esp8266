@@ -17,3 +17,26 @@ void turnMLAction(String chat_id)
     delay(MACHINE_TURN_TIMEOUT);
     pingAction(chat_id);
 }
+
+void setIpAction(String chat_id, String ip)
+{
+    int ipParts[4];
+    int partIndex = 0;
+    String part = "";
+    for (int i = 0; i <= (ip.length()); i++)
+    {
+        if (ip[i] == '.')
+            {
+                ipParts[partIndex] = part.toInt();
+                part = "";
+                partIndex++;
+            }
+        else
+        {
+            part.concat(ip[i]);
+        }
+    }
+    ipParts[3] = part.toInt();
+    IPAddress addr = IPAddress(ipParts[0], ipParts[1], ipParts[2], ipParts[3]);
+    saveIp(ipParts);
+}

@@ -42,6 +42,10 @@ void handleNewMessages(int numNewMessages)
         {
             pingAction(chat_id);
         }
+        else if (text.substring(0, 7) == "/set_ip")
+        {
+            setIpAction(chat_id, text.substring(8));
+        }
         else
         {
             sendMessage(chat_id, "Can't handle " + text);
