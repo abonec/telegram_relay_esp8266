@@ -19,7 +19,7 @@ void intervalPing()
         }
         else
         {
-            sendMessage(GROUIP, "ml is ofline now");
+            sendMessage(GROUIP, "ml is offline now");
         }
         lastPingState = currentState;
     }
