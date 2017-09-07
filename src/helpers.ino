@@ -23,6 +23,9 @@ void printlnDebug(IPAddress string)
 }
 void toggleRelay(bool relayState)
 {
+    #ifdef WEMOS
+    digitalWrite(RELAY_PIN, relayState);
+    #else
     if (relayState)
     {
         //enable
@@ -35,6 +38,7 @@ void toggleRelay(bool relayState)
         const byte miBufferOFF[] = {0xA0, 0x01, 0x00, 0xA1};
         Serial.write(miBufferOFF, sizeof(miBufferOFF));
     }
+    #endif
 }
 
 void turnML()
@@ -82,5 +86,4 @@ void loadIp()
         Serial.println("close");
     }
     mlIp = IPAddress(parts[0], parts[1], parts[2], parts[3]);
-    sendMessage(GROUIP, mlIp.toString());
 }

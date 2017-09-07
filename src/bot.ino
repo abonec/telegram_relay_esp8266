@@ -3,7 +3,7 @@ UniversalTelegramBot bot(BOTtoken, client);
 
 void initBot()
 {
-    sendMessage(GROUIP, "ML relay bot is online now");
+    sendMessage(GROUIP, String("ML relay bot is online now ") + String("; monitoring ") + mlIp.toString());
 }
 
 void sendMessage(String chatId, String message)

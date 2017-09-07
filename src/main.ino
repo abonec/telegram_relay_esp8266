@@ -11,12 +11,15 @@ void setup()
     Serial.begin(9600);
     Serial.println("loading....");
     pinMode(2, OUTPUT);
+    #ifdef WEMOS
+    pinMode(RELAY_PIN, OUTPUT);
+    #endif
     digitalWrite(2, 0);
     initWifi();
-    initBot();
     initPinger();
     initEEPROM();
     loadIp();
+    initBot();
 }
 unsigned long lastPing;
 unsigned long lastCheckMessages;
