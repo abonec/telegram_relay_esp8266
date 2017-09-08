@@ -5,9 +5,13 @@
 #include <constants.h>
 #include <helpers.h>
 
+
+#include <ESP8266mDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
+
 void setup()
 {
-    delay(1500);
     Serial.begin(9600);
     Serial.println("loading....");
     pinMode(2, OUTPUT);
@@ -20,11 +24,15 @@ void setup()
     initEEPROM();
     loadIp();
     initBot();
+    ArduinoOTA.setHostname("esp_relay");
+    ArduinoOTA.setPassword(OTA_PASSWORD);
+    ArduinoOTA.begin();
 }
 unsigned long lastPing;
 unsigned long lastCheckMessages;
 void loop()
 {
+    ArduinoOTA.handle();
     intervaledPerform(lastCheckMessages, 2000, checkMessages);
     intervaledPerform(lastPing, 10000, intervalPing);
 }
